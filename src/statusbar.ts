@@ -2,10 +2,10 @@ import {
   StatusBarAlignment,
   window,
   TextDocument,
-  StatusBarItem
-} from 'vscode';
-import { ReadingTimeData } from './models';
-import { matchesFileType } from './file-type';
+  StatusBarItem,
+} from "vscode";
+import { IReadingTimeData } from "./models";
+import { matchesFileType } from "./file-type";
 
 let _statusBarItem: StatusBarItem;
 
@@ -23,20 +23,20 @@ export function getStatusBarItem() {
 export function clearStatusBar() {
   const statusBarItem = getStatusBarItem();
 
-  statusBarItem.text = '';
-  statusBarItem.tooltip = '';
+  statusBarItem.text = "";
+  statusBarItem.tooltip = "";
   statusBarItem.hide();
 }
 
 export function updateStatusBar(
   document: TextDocument,
-  readingTimeData: ReadingTimeData
+  readingTimeData: IReadingTimeData
 ) {
   const statusBarItem = getStatusBarItem();
   if (matchesFileType(document.languageId)) {
-    const roundedMinutes = Math.round(readingTimeData.minutes);
-    statusBarItem.text = `$(book) ${roundedMinutes}`;
-    statusBarItem.tooltip = `${roundedMinutes} minute read`;
+    const { minutes, seconds } = readingTimeData;
+    statusBarItem.text = `$(book) ${minutes}m ${seconds}s`;
+    statusBarItem.tooltip = `${minutes}m ${seconds}s read`;
     statusBarItem.show();
   } else {
     clearStatusBar();

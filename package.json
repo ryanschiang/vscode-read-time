@@ -52,13 +52,14 @@
             "type": "string"
           },
           "default": [
-            "markdown"
+            "markdown",
+            "mdx"
           ],
           "description": "Specifies the types of files to estimate the read time."
         },
         "readTime.wordsPerMinute": {
           "type": "number",
-          "default": 200,
+          "default": 175,
           "description": "Specifies the estimated words per minute that a user may read."
         }
       }

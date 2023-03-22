@@ -27,3 +27,8 @@ export interface IExpandedReadingTimeData {
   words: number;
   minutes: number;
 }
+
+export interface IReadingTimeData {
+  minutes: number;
+  seconds: number;
+}

@@ -1,19 +1,14 @@
-import * as readingTime from 'reading-time';
-import { ReadingTimeData, IExpandedReadingTimeData } from './models';
-import { getWPMSetting } from './configuration';
+import { getWPMSetting } from "./configuration";
 
-export function getReadingTime(textToRead: string): IExpandedReadingTimeData {
-  let readingTimeData = new ReadingTimeData();
+export function getReadingTime(textToRead: string) {
   const wordsPerMinute = getWPMSetting();
-  const options = { wordsPerMinute };
-  readingTimeData = readingTime(textToRead, options);
-  return modifyReadingData(readingTimeData);
-}
-
-function modifyReadingData(
-  readingTimeData: ReadingTimeData
-): IExpandedReadingTimeData {
-  const minutes = Math.round(readingTimeData.minutes);
-  const text = `${minutes} minute read`;
-  return { ...readingTimeData, roundedMinutes: minutes, text };
+  const words = textToRead.split(" ");
+  const wordCount = words.length;
+  const minutes = wordCount / wordsPerMinute;
+  const roundedMinutes = Math.floor(minutes);
+  const roundedSeconds = Math.floor((minutes - roundedMinutes) * 60);
+  return {
+    minutes: roundedMinutes,
+    seconds: roundedSeconds,
+  };
 }

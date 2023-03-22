@@ -1,9 +1,12 @@
-import * as vscode from 'vscode';
-import { getReadingTime } from './readtime';
-import { updateStatusBar, clearStatusBar } from './statusbar';
-import { updateEnabledSetting, getEnabledSetting } from './configuration';
-import { Logger } from './logging';
-import { matchesFileType } from './file-type';
+import * as vscode from "vscode";
+import { getReadingTime } from "./readtime";
+import { updateStatusBar, clearStatusBar } from "./statusbar";
+import {
+  updateEnabledSetting,
+  getEnabledSetting,
+} from "./configuration";
+import { Logger } from "./logging";
+import { matchesFileType } from "./file-type";
 
 export function estimateReadTime() {
   const isEnabled = getEnabledSetting();
@@ -25,8 +28,10 @@ export function estimateReadTime() {
     minutes = readingTimeData.minutes;
     Logger.info(
       `Estimated ${readingTimeData.minutes} minutes (${
-        readingTimeData.roundedMinutes
-      } rounded) read time of ${document.fileName} at ${new Date().toString()}`
+        readingTimeData.minutes
+      } rounded) read time of ${
+        document.fileName
+      } at ${new Date().toString()}`
     );
   } else {
     clearStatusBar();
